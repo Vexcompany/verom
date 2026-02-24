@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PAGASKA REST API</title>
+
+<style>
+body {
+  background:#0f172a;
+  color:white;
+  font-family:Arial;
+  padding:20px;
+}
+
+h1 {
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.category {
+  margin-bottom:30px;
+}
+
+.category h2 {
+  cursor:pointer;
+  background:#1e293b;
+  padding:10px;
+  border-radius:8px;
+}
+
+.endpoint {
+  display:none;
+  background:#1e293b;
+  margin:5px 0;
+  padding:10px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.endpoint:hover {
+  background:#334155;
+}
+
+.get {
+  color:#22c55e;
+  font-weight:bold;
+  margin-right:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🚀 PAGASKA REST API</h1>
+
+<div id="docs"></div>
+
+<script>
+const apiList = {
+  "Pagaska": [
+    "/api/pagaska/anggota",
+    "/api/pagaska/jadwal"
+  ],
+  "Anime": [
+    "/api/anime/ainz",
+    "/api/anime/nekopoi",
+    "/api/anime/pixiv"
+  ],
+  "Maker": [
+    "/api/maker/brat",
+    "/api/maker/toburik",
+    "/api/maker/removebg",
+    "/api/maker/smeme",
+    "/api/maker/upscale"
+  ],
+  "Tools": [
+    "/api/tools/checkhost",
+    "/api/tools/google-image",
+    "/api/tools/kbbi",
+    "/api/tools/ssweb"
+  ],
+  "Downloader": [
+    "/api/downloader/douyin",
+    "/api/downloader/facebook",
+    "/api/downloader/instagram",
+    "/api/downloader/mediafire",
+    "/api/downloader/spotify",
+    "/api/downloader/tiktok",
+    "/api/downloader/x",
+    "/api/downloader/youtube",
+    "/api/downloader/yt-post"
+  ],
+  "Game Stalker": [
+    "/api/stalk/genshin",
+    "/api/stalk/hsr",
+    "/api/stalk/zzz"
+  ]
+}
+
+const container = document.getElementById("docs")
+
+for (let category in apiList) {
+  const div = document.createElement("div")
+  div.className = "category"
+
+  const title = document.createElement("h2")
+  title.innerText = category
+  div.appendChild(title)
+
+  apiList[category].forEach(endpoint => {
+    const ep = document.createElement("div")
+    ep.className = "endpoint"
+    ep.innerHTML = `<span class="get">GET</span>${endpoint}`
+    ep.onclick = () => test(endpoint)
+    div.appendChild(ep)
+  })
+
+  title.onclick = () => {
+    const items = div.querySelectorAll(".endpoint")
+    items.forEach(i => {
+      i.style.display = i.style.display === "block" ? "none" : "block"
+    })
+  }
+
+  container.appendChild(div)
+}
+
+function test(endpoint){
+  fetch(endpoint)
+    .then(r=>r.json())
+    .then(d=>alert(JSON.stringify(d,null,2)))
+}
+</script>
+
+</body>
+</html>
